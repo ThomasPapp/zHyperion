@@ -64,7 +64,7 @@ public class Woodcutitng extends ObjectHarvestingAction {
 		/*
 		 * If the harvest is ready, then we harvest some logs.
 		 */
-		if (SkillManager.harvestCheck(player.getSkills().getLevel(Skills.WOODCUTTING), tree.getLevel(), 0)) {
+		if (SkillManager.harvestCheck(player.getSkills().getLevel(Skills.WOODCUTTING), tree.getLevel(), axe.getBonus())) {
 			player.getInventory().add(tree.getLog());
 			player.getSkills().addExperience(Skills.WOODCUTTING, tree.getXP());
 			player.getActionSender().sendMessage("You get some "+ tree.getLog().getDefinition().getName() +".");

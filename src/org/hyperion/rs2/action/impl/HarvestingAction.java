@@ -30,8 +30,6 @@ public abstract class HarvestingAction extends Action {
 	 */
 	private Location location;
 	
-	protected GameObject object;
-	
 	/**
 	 * Creates the harvesting action for the specified player.
 	 * @param player The player to create the action for.
@@ -69,12 +67,6 @@ public abstract class HarvestingAction extends Action {
 	public abstract int getCycles();
 	
 	/**
-	 * Should we harvest?
-	 * @return If the player should harvest this cycle <code>true</code>, if the player shouldn't harvest this cycle <code>false</code>.
-	 */
-	public abstract boolean harvest();
-	
-	/**
 	 * Gets the harvested item.
 	 * @return The harvested item.
 	 */
@@ -105,17 +97,6 @@ public abstract class HarvestingAction extends Action {
 	public abstract boolean getPeriodicRewards();
 	
 	/**
-	 * Gets the new object to add once the player is done harvesting.
-	 * @return The <code>GameObject</code>.
-	 */
-	public abstract GameObject harvestObject();
-	
-	/**
-	 * The total number of cycles.
-	 */
-	private int totalCycles;
-	
-	/**
 	 * The number of remaining cycles.
 	 */
 	private int cycles;
@@ -143,7 +124,6 @@ public abstract class HarvestingAction extends Action {
 				player.face(location);
 			}
 			this.cycles = getCycles();
-			this.totalCycles = cycles;
 		} else {
 			cycles--;
 			Item item = getHarvestedItem();
@@ -156,8 +136,7 @@ public abstract class HarvestingAction extends Action {
 				player.getActionSender().sendMessage("There is not enough space in your inventory.");
 				return;
 			}
-			if(cycles == 0 || harvest()) {
-				harvestObject();
+			if(cycles == 0) {
 				if(!getPeriodicRewards()) {
 					giveRewards(player, item);
 				}

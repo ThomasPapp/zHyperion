@@ -6,6 +6,7 @@ import java.util.Map;
 /**
  * Represents types of axes.
  * @author Graham Edgecombe
+ * @author Thomas
  *
  */
 public enum Axe {
@@ -13,37 +14,37 @@ public enum Axe {
 	/**
 	 * Rune axe.
 	 */
-	RUNE(1359, 41, 867),
+	RUNE(1359, 41, 867, 90),
 	
 	/**
 	 * Adamant axe.
 	 */
-	ADAMANT(1357, 31, 869),
+	ADAMANT(1357, 31, 869, 75),
 	
 	/**
 	 * Mithril axe.
 	 */
-	MITHRIL(1355, 21, 871),
+	MITHRIL(1355, 21, 871, 60),
 	
 	/**
 	 * Black axe.
 	 */
-	BLACK(1361, 6, 873),
+	BLACK(1361, 6, 873, 45),
 	
 	/**
 	 * Steel axe.
 	 */
-	STEEL(1353, 6, 875),
+	STEEL(1353, 6, 875, 30),
 	
 	/**
 	 * Iron axe.
 	 */
-	IRON(1349, 1, 877),
+	IRON(1349, 1, 877, 15),
 	
 	/**
 	 * Bronze axe.
 	 */
-	BRONZE(1351, 1, 879);
+	BRONZE(1351, 1, 879, 0);
 	
 	/**
 	 * The id.
@@ -59,6 +60,11 @@ public enum Axe {
 	 * The animation.
 	 */
 	private int animation;
+	
+	/**
+	 * The axes woodcutting bonus.
+	 */
+	private int bonus;
 	
 	/**
 	 * A map of object ids to axes.
@@ -88,11 +94,13 @@ public enum Axe {
 	 * @param id The id.
 	 * @param level The required level.
 	 * @param animation The animation id.
+	 * @param bonus The woodcutting bonus.
 	 */
-	private Axe(int id, int level, int animation) {
+	private Axe(int id, int level, int animation, int bonus) {
 		this.id = id;
 		this.level = level;
 		this.animation = animation;
+		this.bonus = bonus;
 	}
 	
 	/**
@@ -117,6 +125,14 @@ public enum Axe {
 	 */
 	public int getAnimation() {
 		return animation;
+	}
+	
+	/**
+	 * Gets the woodcutting bonus.
+	 * @return The woodcutting bonus.
+	 */
+	public int getBonus() {
+		return bonus;
 	}
 	
 }

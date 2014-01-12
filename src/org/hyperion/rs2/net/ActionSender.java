@@ -53,7 +53,7 @@ public class ActionSender {
 	public ActionSender sendLogin() {
 		player.setActive(true);
 		sendDetails();
-		sendMessage("Welcome to RuneScape.");
+		sendMessage("Welcome to zHyperion.");
 		
 		sendMapRegion();
 		sendSidebarInterfaces();
@@ -322,6 +322,23 @@ public class ActionSender {
 		return this;
 	}
 	
+	/**
+	 * Sends an object.
+	 * 
+	 * @param id
+	 *            The object id.
+	 * @param x
+	 *            The objects X coordinate.
+	 * @param y
+	 *            The objects Y coordinate.
+	 * @param h
+	 *            The objects H coordinate.
+	 * @param face
+	 *            The objects face.
+	 * @param type
+	 *            The objects type.
+	 * @return The action sender instance, for chaining.
+	 */
 	public ActionSender sendObject(int id, int x, int y, int h, int face, int type) {
 		PacketBuilder packet = new PacketBuilder(151);
 		sendCoords(Location.create(x, y, h));
@@ -332,12 +349,57 @@ public class ActionSender {
 		return this;
 	}
 	
+	/**
+	 * Sends region coordinates (used for sending objects).
+	 * 
+	 * @param location
+	 *            The <code>Location</code>.
+	 * @return The action sender instance, for chaining.
+	 */
 	public ActionSender sendCoords(Location location) {
 		PacketBuilder packet = new PacketBuilder(85);
 		int y = location.getY() - 8 * player.getLastKnownRegion().getRegionY();
 		int x = location.getX() - 8 * player.getLastKnownRegion().getRegionX();
 		packet.putByteC(y);
 		packet.putByteC(x);
+		player.write(packet.toPacket());
+		return this;
+	}
+	
+	/**
+	 * Resets all animations for players and npcs in the surrounding area.
+	 * @return The action sender instance, for chaining.
+	 */
+	public ActionSender resetAnimations() {
+		PacketBuilder packet = new PacketBuilder(1);
+		player.write(packet.toPacket());
+		return this;
+	}
+	
+	/**
+	 * Flashes a sidebar icon.
+	 * 
+	 * @param sidebar
+	 *            The sidebar to flash.
+	 * @return The action sender instance, for chaining.
+	 */
+	public ActionSender flashSidebar(int sidebar) {
+		PacketBuilder packet = new PacketBuilder(24);
+		packet.putByteA((byte) sidebar);
+		player.write(packet.toPacket());
+		return this;
+	}
+	
+	/**
+	 * Sends the friends list.
+	 * 
+	 * @param stage
+	 *            The stage of the friends list.
+	 * @return The action sender instance, for chaining.
+	 */
+	public ActionSender sendFriendsList(int stage) {
+		PacketBuilder packet = new PacketBuilder(221);
+		packet.put((byte) stage);
 		player.write(packet.toPacket());
 		return this;
 	}

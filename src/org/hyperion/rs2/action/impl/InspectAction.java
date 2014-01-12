@@ -9,7 +9,7 @@ public abstract class InspectAction extends Action {
     /**
      * The location.
      */
-    private Location location;
+    protected Location location;
 
     /**
      * Constructor.

@@ -12,7 +12,7 @@ import org.hyperion.rs2.model.UpdateFlags;
 public class Hit {
 
 	/**
-	 * The attack.
+	 * The attacker.
 	 */
 	private Entity attacker;
 	

@@ -5,6 +5,10 @@ import org.hyperion.rs2.model.GameObjectDefinition;
 import org.hyperion.rs2.model.Location;
 import org.hyperion.rs2.model.ObjectHandler;
 import org.hyperion.rs2.model.Player;
+import org.hyperion.rs2.model.content.skills.mining.EssenceMining;
+import org.hyperion.rs2.model.content.skills.mining.Ore;
+import org.hyperion.rs2.model.content.skills.mining.OreMining;
+import org.hyperion.rs2.model.content.skills.mining.Prospecting;
 import org.hyperion.rs2.model.content.skills.woodcutting.Tree;
 import org.hyperion.rs2.model.content.skills.woodcutting.Woodcutitng;
 import org.hyperion.rs2.net.Packet;
@@ -52,6 +56,14 @@ public class ObjectOptionPacketHandler implements PacketHandler {
 		if (Tree.isTree(id)) {
 			player.getActionQueue().addAction(new Woodcutitng(player, object));
 		}
+		if (Ore.forId(id) != null) {
+			player.getActionQueue().addAction(new OreMining(player, object));
+		}
+		switch (id) {
+			case 2491:
+				player.getActionQueue().addAction(new EssenceMining(player, loc));
+				break;
+		}
 	}
 	
     /**
@@ -64,6 +76,11 @@ public class ObjectOptionPacketHandler implements PacketHandler {
         int y = packet.getLEShort() & 0xFFFF;
         int x = packet.getShortA() & 0xFFFF;
         Location loc = Location.create(x, y, player.getLocation().getZ());
+        GameObject object = ObjectHandler.getInstance().getObject(loc.getX(), loc.getY(), loc.getZ());
+		player.face(loc);
+		if (Ore.forId(id) != null) {
+			player.getActionQueue().addAction(new Prospecting(player, loc, Ore.forId(id)));
+		}
     }
 
 
