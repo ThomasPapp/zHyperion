@@ -29,7 +29,7 @@ public enum Axe {
 	/**
 	 * Black axe.
 	 */
-	BLACK(1361, 6, 873, 45),
+	BLACK(1361, 11, 873, 45),
 	
 	/**
 	 * Steel axe.
