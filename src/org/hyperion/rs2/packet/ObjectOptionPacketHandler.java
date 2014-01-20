@@ -1,7 +1,7 @@
 package org.hyperion.rs2.packet;
 
+import org.hyperion.rs2.action.impl.WalkToAction;
 import org.hyperion.rs2.model.GameObject;
-import org.hyperion.rs2.model.GameObjectDefinition;
 import org.hyperion.rs2.model.Location;
 import org.hyperion.rs2.model.ObjectHandler;
 import org.hyperion.rs2.model.Player;
@@ -43,27 +43,47 @@ public class ObjectOptionPacketHandler implements PacketHandler {
 	 * @param packet The packet.
 	 */
 	private void handleOption1(Player player, Packet packet) {
-		int x = packet.getLEShortA() & 0xFFFF;
-		int id = packet.getShort() & 0xFFFF;
-		int y = packet.getShortA() & 0xFFFF;
-		Location loc = Location.create(x, y, player.getLocation().getZ());
-		GameObject object = ObjectHandler.getInstance().getObject(loc.getX(), loc.getY(), loc.getZ());
-		player.face(loc);
-		/*if (object == null)
-			new GameObject(new GameObjectDefinition(id, null, null, 1, 1, false, false, false), loc, 10, 0);*/
-		
+		final int x = packet.getLEShortA() & 0xFFFF;
+		final int id = packet.getShort() & 0xFFFF;
+		final int y = packet.getShortA() & 0xFFFF;
+		final Location loc = Location.create(x, y, player.getLocation().getZ());
+		final GameObject object = ObjectHandler.getInstance().getObject(loc.getX(), loc.getY(), loc.getZ());
 		player.getActionSender().sendMessage("Object first click: "+ loc.toString() +" id: "+ id);
-		if (Tree.isTree(id)) {
-			player.getActionQueue().addAction(new Woodcutitng(player, object));
-		}
-		if (Ore.forId(id) != null) {
-			player.getActionQueue().addAction(new OreMining(player, object));
-		}
-		switch (id) {
-			case 2491:
-				player.getActionQueue().addAction(new EssenceMining(player, loc));
-				break;
-		}
+		player.getActionQueue().addAction(new WalkToAction(player) {
+
+			@Override
+			public void init() {
+				player.face(loc);
+				if (Tree.isTree(id)) {
+					this.stop();
+					player.getActionQueue().addAction(new Woodcutitng(player, object));
+					return;
+				}
+				if (Ore.forId(id) != null) {
+					this.stop();
+					player.getActionQueue().addAction(new OreMining(player, object));
+					return;
+				}
+				switch (id) {
+					case 2491:
+						this.stop();
+						player.getActionQueue().addAction(new EssenceMining(player, loc));
+						break;
+				}
+				this.stop();
+			}
+
+			@Override
+			public long getDelay() {
+				return 1000;
+			}
+
+			@Override
+			public Location getDestination() {
+				return loc;
+			}
+			
+		});
 	}
 	
     /**

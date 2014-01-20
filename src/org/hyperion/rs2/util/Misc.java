@@ -1,5 +1,7 @@
 package org.hyperion.rs2.util;
 
+import java.util.Random;
+
 public class Misc {
 
 	public static final boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
@@ -12,6 +14,12 @@ public class Misc {
 	public static int random(int range) {
 		int number = (int) (Math.random() * (range + 1));
 		return number < 0 ? 0 : number;
+	}
+	
+	private static Random random = new Random();
+	
+	public static Random getRandom() {
+		return random;
 	}
 	
 }

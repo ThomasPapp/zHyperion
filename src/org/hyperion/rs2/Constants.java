@@ -77,6 +77,16 @@ public class Constants {
 	public static final int MAX_NPCS = 32000;
 	
 	/**
+	 * The max NPC id.
+	 */
+	public static final int MAX_NPC_ID = 3794;
+	
+	/**
+	 * The distance an NPC can walk.
+	 */
+	public static final int NPC_WALK_DISTANCE = 2;
+	
+	/**
 	 * An array of valid characters in a long username.
 	 */
 	public static final char VALID_CHARS[] = { '_', 'a', 'b', 'c', 'd',
@@ -100,5 +110,7 @@ public class Constants {
 	 * The maximum amount of items in a stack.
 	 */
 	public static final int MAX_ITEMS = Integer.MAX_VALUE;
+	
+	public static final boolean SPECIAL_CLIENT = false;
 
 }

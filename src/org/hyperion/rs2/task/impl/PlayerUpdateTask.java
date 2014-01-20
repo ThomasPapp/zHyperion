@@ -2,6 +2,7 @@ package org.hyperion.rs2.task.impl;
 
 import java.util.Iterator;
 
+import org.hyperion.rs2.Constants;
 import org.hyperion.rs2.GameEngine;
 import org.hyperion.rs2.model.Appearance;
 import org.hyperion.rs2.model.ChatMessage;
@@ -493,7 +494,13 @@ public class PlayerUpdateTask implements Task {
 		
 		PacketBuilder playerProps = new PacketBuilder();
 		playerProps.put((byte) app.getGender()); // gender
-		playerProps.put((byte) 0); // skull icon
+		
+		if (!Constants.SPECIAL_CLIENT)
+			playerProps.put((byte) 0); // skull icon
+		else {
+	        playerProps.put((byte) -1); // head icon
+	        playerProps.put((byte) -1); // skull icon
+		}
 		
 		for(int i = 0; i < 4; i++) {
 			if(eq.isSlotUsed(i)) {

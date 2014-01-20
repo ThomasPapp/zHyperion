@@ -1,0 +1,22 @@
+<list>
+	<spawn>
+		<id>2</id>
+		<loc>
+			<x>3232</x>
+			<y>3232</y>
+			<z>0</z>
+		</loc>
+		<face>north</face>
+		<walk>true</walk>
+	</spawn>
+	<spawn>
+		<id>2</id>
+		<loc>
+			<x>3222</x>
+			<y>3222</y>
+			<z>0</z>
+		</loc>
+		<face>east</face>
+		<walk>false</walk>
+	</spawn>
+</list>

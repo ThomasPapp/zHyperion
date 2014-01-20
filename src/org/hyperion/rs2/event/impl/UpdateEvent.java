@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.hyperion.rs2.event.Event;
-import org.hyperion.rs2.model.NPC;
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.World;
+import org.hyperion.rs2.model.npc.NPC;
 import org.hyperion.rs2.task.ConsecutiveTask;
 import org.hyperion.rs2.task.ParallelTask;
 import org.hyperion.rs2.task.Task;

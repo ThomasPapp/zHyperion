@@ -2,7 +2,6 @@ package org.hyperion.rs2.event.impl;
 
 import org.hyperion.rs2.event.Event;
 import org.hyperion.rs2.model.Entity;
-import org.hyperion.rs2.model.NPC;
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.Skills;
 import org.hyperion.rs2.model.World;

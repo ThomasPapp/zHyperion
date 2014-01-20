@@ -8,7 +8,9 @@ import org.hyperion.rs2.model.Item;
 import org.hyperion.rs2.model.Location;
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.Skills;
+import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.model.container.Bank;
+import org.hyperion.rs2.model.npc.NPC;
 import org.hyperion.rs2.net.Packet;
 import org.hyperion.rs2.pf.AStarPathFinder;
 import org.hyperion.rs2.pf.Path;
@@ -33,6 +35,11 @@ public class CommandPacketHandler implements PacketHandler {
 		try {
 			if(command.equals("obj")) {
 				new GameObject(GameObjectDefinition.forId(Integer.parseInt(args[1])), player.getLocation(), 10, 3, 6951, 20);
+			}
+			if(command.equals("npc")) {
+				NPC npc = new NPC(Integer.parseInt(args[1]));
+				npc.setLocation(player.getLocation());
+				World.getWorld().register(npc);
 			}
 			if(command.equals("tele")) {
 				if(args.length == 3 || args.length == 4) {

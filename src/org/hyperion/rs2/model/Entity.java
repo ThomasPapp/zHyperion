@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
+import org.hyperion.rs2.model.npc.NPC;
 import org.hyperion.rs2.model.region.Region;
 
 /**
@@ -467,6 +468,11 @@ public abstract class Entity {
 	public void destroy() {
 		removeFromRegion(currentRegion);
 	}
+	
+	/**
+	 * Processes the <code>Entity</code>
+	 */
+	public abstract void process();
 	
 	/**
 	 * Deal a hit to the entity.

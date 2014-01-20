@@ -9,6 +9,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import org.hyperion.rs2.event.Event;
+import org.hyperion.rs2.model.Entity;
 import org.hyperion.rs2.model.ObjectHandler;
 import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.task.Task;
@@ -103,6 +105,7 @@ public class GameEngine implements Runnable {
 						@Override
 						public void run() {
 							task.execute(GameEngine.this);
+							World.getWorld().process();
 							ObjectHandler.getInstance().process();
 						}
 					});

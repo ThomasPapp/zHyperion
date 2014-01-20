@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.hyperion.rs2.model.Entity;
 import org.hyperion.rs2.model.Location;
-import org.hyperion.rs2.model.NPC;
 import org.hyperion.rs2.model.Player;
+import org.hyperion.rs2.model.npc.NPC;
 
 /**
  * Manages the world regions.

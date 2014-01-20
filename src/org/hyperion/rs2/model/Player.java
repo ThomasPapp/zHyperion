@@ -683,5 +683,11 @@ public class Player extends Entity implements Persistable {
 	public Location getDefaultRegion() {
 		return defaultRegion;
 	}
+
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

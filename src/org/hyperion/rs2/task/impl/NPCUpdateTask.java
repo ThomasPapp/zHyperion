@@ -5,11 +5,11 @@ import java.util.Iterator;
 import org.hyperion.rs2.GameEngine;
 import org.hyperion.rs2.model.Entity;
 import org.hyperion.rs2.model.Location;
-import org.hyperion.rs2.model.NPC;
 import org.hyperion.rs2.model.Player;
 import org.hyperion.rs2.model.UpdateFlags;
 import org.hyperion.rs2.model.World;
 import org.hyperion.rs2.model.UpdateFlags.UpdateFlag;
+import org.hyperion.rs2.model.npc.NPC;
 import org.hyperion.rs2.net.Packet;
 import org.hyperion.rs2.net.PacketBuilder;
 import org.hyperion.rs2.task.Task;
@@ -196,7 +196,7 @@ public class NPCUpdateTask implements Task {
 		/*
 		 * We now write the NPC type id.
 		 */
-		packet.putBits(12, npc.getDefinition().getId());
+		packet.putBits(12, npc.getId());
 		
 		/*
 		 * And indicate if an update is required.

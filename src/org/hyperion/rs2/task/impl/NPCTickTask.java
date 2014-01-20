@@ -1,7 +1,7 @@
 package org.hyperion.rs2.task.impl;
 
 import org.hyperion.rs2.GameEngine;
-import org.hyperion.rs2.model.NPC;
+import org.hyperion.rs2.model.npc.NPC;
 import org.hyperion.rs2.task.Task;
 
 /**

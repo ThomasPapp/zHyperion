@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.hyperion.rs2.model.GameObject;
-import org.hyperion.rs2.model.NPC;
 import org.hyperion.rs2.model.Player;
+import org.hyperion.rs2.model.npc.NPC;
 
 /**
  * Represents a single region.

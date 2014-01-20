@@ -2,7 +2,9 @@ package org.hyperion.rs2.model;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -21,6 +23,8 @@ import org.hyperion.rs2.event.impl.CleanupEvent;
 import org.hyperion.rs2.event.impl.UpdateEvent;
 import org.hyperion.rs2.login.LoginServerConnector;
 import org.hyperion.rs2.login.LoginServerWorldLoader;
+import org.hyperion.rs2.model.npc.NPC;
+import org.hyperion.rs2.model.npc.NPCDefinition;
 import org.hyperion.rs2.model.region.RegionManager;
 import org.hyperion.rs2.net.PacketBuilder;
 import org.hyperion.rs2.net.PacketManager;
@@ -30,6 +34,7 @@ import org.hyperion.rs2.task.impl.SessionLoginTask;
 import org.hyperion.rs2.util.ConfigurationParser;
 import org.hyperion.rs2.util.EntityList;
 import org.hyperion.rs2.util.NameUtils;
+import org.hyperion.rs2.util.XStreamManager;
 import org.hyperion.util.BlockingExecutorService;
 
 /**
@@ -77,6 +82,8 @@ public class World {
 	 */
 	private WorldLoader loader;
 	
+	private NPCDefinition[] npcDefinitions = new NPCDefinition[Constants.MAX_NPC_ID];
+	
 	/**
 	 * A list of connected players.
 	 */
@@ -121,6 +128,13 @@ public class World {
 				return null;
 			}
 		});
+		backgroundLoader.submit(new Callable<Object>() {
+			@Override
+			public Object call() throws Exception {
+				XStreamManager.loadFiles();
+				return null;
+			}
+		});
 	}
 	
 	/**
@@ -145,6 +159,21 @@ public class World {
 	 */
 	public RegionManager getRegionManager() {
 		return regionManager;
+	}
+	
+	/**
+	 * Processes the world.
+	 */
+	public void process() {
+		for (NPC npc : npcs) {
+			if (npc != null) {
+				npc.process();
+			}
+		}
+		for (Player player : players) {
+			if (player != null)
+				player.process();
+		}
 	}
 	
 	/**
@@ -393,6 +422,10 @@ public class World {
 				}
 			}
 		});
+	}
+	
+	public NPCDefinition[] getNpcDef() {
+		return npcDefinitions;
 	}
 
 	/**
