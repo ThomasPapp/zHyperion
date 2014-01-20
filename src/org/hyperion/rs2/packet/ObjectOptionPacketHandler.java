@@ -2,6 +2,7 @@ package org.hyperion.rs2.packet;
 
 import org.hyperion.rs2.action.impl.WalkToAction;
 import org.hyperion.rs2.model.GameObject;
+import org.hyperion.rs2.model.GameObjectDefinition;
 import org.hyperion.rs2.model.Location;
 import org.hyperion.rs2.model.ObjectHandler;
 import org.hyperion.rs2.model.Player;
@@ -47,10 +48,15 @@ public class ObjectOptionPacketHandler implements PacketHandler {
 		final int id = packet.getShort() & 0xFFFF;
 		final int y = packet.getShortA() & 0xFFFF;
 		final Location loc = Location.create(x, y, player.getLocation().getZ());
-		final GameObject object = ObjectHandler.getInstance().getObject(loc.getX(), loc.getY(), loc.getZ());
 		player.getActionSender().sendMessage("Object first click: "+ loc.toString() +" id: "+ id);
+		GameObject obj = ObjectHandler.getInstance().getObject(loc.getX(), loc.getY(), loc.getZ());
+		
+		if (obj == null) {
+			obj = new GameObject(new GameObjectDefinition(id, null, null, 1, 1, false, false, true), loc, 10, 0);
+		}
+		final GameObject object = obj;
 		player.getActionQueue().addAction(new WalkToAction(player) {
-
+			
 			@Override
 			public void init() {
 				player.face(loc);
